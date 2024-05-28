@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Redirecting...</title>
+    <script>
+      function enableButton() {
+        document.getElementById("nextButton").disabled = false;
+      }
+      window.onload = function () {
+        setTimeout(enableButton, 20000); // 20000 milliseconds = 20 seconds
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Redirecting to page 4...</h1>
+    <p>Click the button below to proceed to the next page.</p>
+    <button
+      id="nextButton"
+      onclick="window.location.href='/go4/<%= urlId %>'"
+      disabled
+    >
+      Next
+    </button>
+  </body>
+</html>

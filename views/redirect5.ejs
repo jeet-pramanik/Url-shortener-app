@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Final redirection...</title>
+    <script>
+      function enableButton() {
+        document.getElementById("nextButton").disabled = false;
+      }
+      window.onload = function () {
+        setTimeout(enableButton, 20000); // 20000 milliseconds = 20 seconds
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Final redirection...</h1>
+    <p>Click the button below to proceed to the final URL.</p>
+    <button
+      id="nextButton"
+      onclick="window.location.href='/final_redirect/<%= urlId %>'"
+      disabled
+    >
+      Next
+    </button>
+  </body>
+</html>

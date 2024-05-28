@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>URL Shortener</title>
+  </head>
+  <body>
+    <h1>URL Shortener</h1>
+    <form action="/shorten" method="post">
+      <input type="url" name="url" placeholder="Enter URL" required />
+      <button type="submit">Shorten</button>
+    </form>
+    <% if (typeof shortUrl !== 'undefined') { %>
+    <p>Shortened URL: <a href="<%= shortUrl %>"><%= shortUrl %></a></p>
+    <% } %>
+  </body>
+</html>
