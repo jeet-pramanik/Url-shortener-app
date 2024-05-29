@@ -2,6 +2,8 @@
 
 ## Overview
 
+[Visit the deployed application](https://url-shortener-git.vercel.app/shorten)
+
 This project is a web-based URL shortener application. Users can enter a long URL and receive a shortened version that redirects to the original URL when accessed.
 
 ## Features
