@@ -2,15 +2,137 @@
 <html>
   <head>
     <title>URL Shortener</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        font-family: "Arial", sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+      }
+      .container {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        max-width: 600px;
+        margin: auto;
+        text-align: center;
+      }
+      h1 {
+        color: #ffffff;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      input[type="url"] {
+        width: 80%;
+        padding: 15px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 30px;
+        outline: none;
+        font-size: 1em;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.3s ease;
+      }
+      input[type="url"]:focus {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+      button {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 30px;
+        background: #764ba2;
+        color: white;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.3s ease;
+        margin-top: 10px;
+      }
+      button:hover {
+        background: #667eea;
+        transform: scale(1.05);
+      }
+      .result {
+        margin-top: 20px;
+      }
+      .result p {
+        color: #ffffff;
+        font-size: 1.2em;
+      }
+      .result a {
+        color: #ffcc00;
+        font-size: 1.2em;
+        text-decoration: none;
+      }
+      .error {
+        color: red;
+        margin-top: 20px;
+        font-size: 1em;
+      }
+      .short-url {
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 30px;
+        width: auto;
+      }
+      #shortUrl {
+        text-decoration: none;
+        font-size: medium;
+      }
+    </style>
   </head>
   <body>
-    <h1>URL Shortener</h1>
-    <form action="/shorten" method="post">
-      <input type="url" name="url" placeholder="Enter URL" required />
-      <button type="submit">Shorten</button>
-    </form>
-    <% if (typeof shortUrl !== 'undefined') { %>
-    <p>Shortened URL: <a href="<%= shortUrl %>"><%= shortUrl %></a></p>
-    <% } %>
+    <div class="container">
+      <h1>URL Shortener</h1>
+      <form action="/shorten" method="post">
+        <input
+          type="url"
+          name="url"
+          id="inputUrl"
+          placeholder="Enter URL"
+          required
+        />
+        <button type="submit">Shorten</button>
+      </form>
+      <% if (typeof shortUrl !== 'undefined') { %>
+      <div class="short-url-container">
+        <p class="short-url" id="shortUrlContainer">
+          <a href="<%= shortUrl %>" id="shortUrl"><%= shortUrl %></a>
+        </p>
+        <button id="copyButton" onclick="copyToClipboard()">Copy</button>
+      </div>
+      <% } %>
+    </div>
+
+    <script>
+      function copyToClipboard() {
+        var shortUrlElement = document.getElementById("shortUrl");
+        var originalText = shortUrlElement.innerText;
+        navigator.clipboard
+          .writeText(originalText)
+          .then(() => {
+            shortUrlElement.innerText = "";
+            document.getElementById("copyButton").innerText = "Copied!";
+            setTimeout(function () {
+              window.location.href = "/";
+            }, 0.000001); // Redirect after 2 seconds
+          })
+          .catch((error) => {
+            console.error("Failed to copy: ", error);
+          });
+      }
+    </script>
   </body>
 </html>
